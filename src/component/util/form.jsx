@@ -81,7 +81,12 @@ class Form extends Component {
                     data={{
                       name: input.name,
                       placeholder: input.name,
-                      type: input.name == 'password' ? 'password' : input.type,
+                      type:
+                        input.name == 'password'
+                          ? 'password'
+                          : input.name === 'birthDate'
+                          ? 'date'
+                          : 'text',
                       value: input.value,
                       warning: input.warning,
                     }}
