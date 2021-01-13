@@ -6,11 +6,16 @@ import {
   removeCategory,
   editCategory,
 } from '../../store/entities/category'
+import {
+  clearList,
+  loadPostWithCategory,
+  loadPost,
+} from '../../store/entities/post'
 import { switchPhoneMenu } from '../../store/entities/ui'
 import Button from '../util/button'
 import Input from '../util/input'
 import Joi from 'joi'
-
+import { Link } from 'react-router-dom'
 class Menu extends Component {
   state = {
     createMode: false,
@@ -42,9 +47,18 @@ class Menu extends Component {
     this.setState({ createMode: false })
   }
   handleDelete = (id) => {
-    console.log(id)
     const data = { _id: id }
     this.props.removeCategory(data)
+  }
+  handleLink = (id) => {
+    if (!id) {
+      this.props.clearList()
+      this.props.loadPost(1, 10)
+      this.props.switchPhoneMenu(false)
+    }
+    this.props.clearList()
+    this.props.loadPostWithCategory(id, 1, 10)
+    this.props.switchPhoneMenu(false)
   }
   render() {
     return (
@@ -75,14 +89,20 @@ class Menu extends Component {
           />
         )}
         {this.props.loading && <span>loading ...</span>}
+        <div className="link" style={{ widht: '100%' }}>
+          <Link to={`/`} onClick={() => this.handleLink()}>
+            <span>hot</span>
+          </Link>
+        </div>
         {this.props.categories.map((category) => (
           <div key={category._id} className="link" style={{ widht: '100%' }}>
-            <a
-              href={`#${category._id}`}
-              onClick={() => this.props.switchPhoneMenu(false)}
+            <Link
+              to={`/${category._id}`}
+              onClick={() => this.handleLink(category._id)}
             >
               <span>{category.name}</span>
-            </a>
+            </Link>
+
             {this.props.user && this.props.user.isAdmin && (
               <span
                 className="sm-btn danger btn"
@@ -113,6 +133,10 @@ const mapDispatch = (dispatch) => ({
   editCategory: (category) => dispatch(editCategory(category)),
   removeCategory: (category) => dispatch(removeCategory(category)),
   switchPhoneMenu: (value) => dispatch(switchPhoneMenu(value)),
+  loadPostWithCategory: (id, pageNumber, pageSize) =>
+    dispatch(loadPostWithCategory(id, pageNumber, pageSize)),
+  clearList: () => dispatch(clearList()),
+  loadPost: (pageNumber, pageSize) => dispatch(loadPost(pageNumber, pageSize)),
 })
 
 export default connect(mapState, mapDispatch)(Menu)

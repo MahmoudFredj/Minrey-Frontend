@@ -32,6 +32,7 @@ class HomePage extends Component {
           <BrowserRouter>
             <Switch>
               <Route path="/poster/:id" component={PosterMain} />
+              <Route path="/:id" component={HomeMain} />
               <Route path="/" component={HomeMain} />
             </Switch>
           </BrowserRouter>

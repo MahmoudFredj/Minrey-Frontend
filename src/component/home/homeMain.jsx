@@ -1,7 +1,11 @@
 import React, { Component } from 'react'
 import PostPanel from './posterPanel'
 import { connect } from 'react-redux'
-import { loadPost, clearList } from '../../store/entities/post'
+import {
+  loadPost,
+  clearList,
+  loadPostWithCategory,
+} from '../../store/entities/post'
 import LoadingPanel from '../util/loadingPanel'
 class HomeMain extends Component {
   state = {
@@ -12,7 +16,13 @@ class HomeMain extends Component {
   componentDidMount() {
     const pageNumber = this.state.pageNumber
     const pageSize = this.state.pageSize
-    this.props.loadPost(pageNumber, pageSize)
+    if (this.props.match.params.id)
+      this.props.loadPostWithCategory(
+        this.props.match.params.id,
+        pageNumber,
+        pageSize,
+      )
+    else this.props.loadPost(pageNumber, pageSize)
   }
   componentWillUnmount() {
     this.props.clearList()
@@ -23,8 +33,15 @@ class HomeMain extends Component {
     if (leftOverScroll < 500 && !this.state.tick) {
       const pageNumber = this.state.pageNumber + 1
       this.setState({ tick: true, pageNumber })
-      if (!this.props.full)
-        await this.props.loadPost(pageNumber, this.state.pageSize)
+      if (!this.props.full) {
+        if (this.props.match.params.id)
+          await this.props.loadPostWithCategory(
+            this.props.match.params.id,
+            pageNumber,
+            this.state.pageSize,
+          )
+        else await this.props.loadPost(pageNumber, this.state.pageSize)
+      }
       this.setState({ tick: false })
     }
   }
@@ -54,6 +71,8 @@ const mapState = (state) => ({
 
 const mapDispatch = (dispatch) => ({
   loadPost: (pageNumber, pageSize) => dispatch(loadPost(pageNumber, pageSize)),
+  loadPostWithCategory: (id, pageNumber, pageSize) =>
+    dispatch(loadPostWithCategory(id, pageNumber, pageSize)),
   clearList: () => dispatch(clearList()),
 })
 export default connect(mapState, mapDispatch)(HomeMain)

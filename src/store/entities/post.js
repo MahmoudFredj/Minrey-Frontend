@@ -93,6 +93,14 @@ export const loadPost = (pageNumber, pageSize) =>
     onError: actions.callFailed.type,
   })
 
+export const loadPostWithCategory = (id, pageNumber, pageSize) =>
+  apiCallBegan({
+    url: `${url}/${id}/${pageNumber}/${pageSize}`,
+    onStart: actions.callBegan.type,
+    onSuccess: actions.postLoaded.type,
+    onError: actions.callFailed.type,
+  })
+
 export const loadOnePost = (id) =>
   apiCallBegan({
     url: `${url}/${id}`,
