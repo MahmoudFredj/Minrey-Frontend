@@ -31,7 +31,8 @@ class uploadPosterPanel extends Component {
     if (
       file.type !== 'image/png' &&
       file.type !== 'image/jpg' &&
-      file.type !== 'image/jpeg'
+      file.type !== 'image/jpeg' &&
+      file.type !== 'image/jfif'
     ) {
       this.setState({ warning: 'file type is not png or jpg' })
       return
