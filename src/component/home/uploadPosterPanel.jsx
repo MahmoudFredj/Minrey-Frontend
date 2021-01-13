@@ -24,7 +24,6 @@ class uploadPosterPanel extends Component {
     let state = { ...this.state }
     //reseting warning
     this.setState({ warning: null })
-    console.log(file)
     if (file.size > 4000000) {
       this.setState({ warning: 'file size too BIG!! (max is 4mo)' })
       return
