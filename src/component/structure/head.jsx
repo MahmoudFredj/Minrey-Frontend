@@ -39,7 +39,7 @@ class Head extends Component {
               ☰
             </label>
           </div>
-          <h1>minrey</h1>
+          <h1>minray</h1>
           <aside>
             {this.props.user ? (
               <UploadButton
