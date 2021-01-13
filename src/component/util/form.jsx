@@ -38,7 +38,7 @@ class Form extends Component {
   }
 
   handleConfirm = () => {
-    const inputs = [...this.state.inputs]
+    let inputs = [...this.state.inputs]
     //reset errors
     inputs.map((input) => {
       input.warning = null
@@ -53,8 +53,15 @@ class Form extends Component {
     const jsonForm = JSON.parse(stringForm)
 
     const { error } = this.schema.validate(jsonForm)
-    if (!error) return this.props.onConfirm(jsonForm)
+    if (!error) {
+      //reseting inputs array
+      inputs.map((input) => {
+        input.value = ''
+      })
 
+      this.setState({ inputs })
+      return this.props.onConfirm(jsonForm)
+    }
     const message = error.details[0].message
     const name = error.details[0].path
 

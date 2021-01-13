@@ -19,8 +19,6 @@ class CommentInput extends Component {
     if (this.props.to === 'post')
       this.props.addComment({ content: comment, _id: this.props.id })
     else this.props.reply({ content: comment, _id: this.props.id })
-
-    this.props.onCancel()
   }
 
   render() {
