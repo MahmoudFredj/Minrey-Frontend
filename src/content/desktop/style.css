@@ -237,7 +237,6 @@ textarea {
 
 .main-content-posters {
   overflow-y: auto;
-  min-height: 100vh;
 }
 .main-app-wrapper menu {
   padding: 0;
