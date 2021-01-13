@@ -1,5 +1,5 @@
 {
     "apiDev":"http://localhost:2525/api",
-    "apiProd":"https://minrayback.herokuapp.com/api",
+    "apiProd":"https://minreyback.herokuapp.com/api",
     "requiredAuth":true
 }
