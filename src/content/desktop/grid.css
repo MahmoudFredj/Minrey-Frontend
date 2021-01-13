@@ -1,0 +1,83 @@
+/* app grid */
+.main-app-wrapper {
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  grid-template-rows: auto 1fr auto;
+  grid-template-areas:
+    'header header'
+    'menu main'
+    'footer footer';
+  gap: 3px;
+  height: 100vh;
+}
+
+.main-app-wrapper header {
+  grid-area: header;
+}
+
+.main-app-wrapper main {
+  grid-area: main;
+  display: grid;
+  grid-template-columns: 1fr 200px;
+  overflow-y: hidden;
+}
+.main-app-wrapper menu {
+  grid-area: menu;
+}
+.main-app-wrapper footer {
+  grid-area: footer;
+}
+/*end app grid */
+
+/* header grid */
+.app-header {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+}
+/* end header grid */
+
+/* loading screen grid */
+.loading-screen {
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-template-rows: auto auto;
+  justify-content: center;
+  align-items: center;
+}
+/* end loading screen grid */
+
+/* login page grid */
+.login-page {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+/* end login page grid */
+
+/* upload */
+
+/* end upload */
+.upload-poster-panel {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  gap: 3px;
+}
+
+.upload-poster-panel .upload-poster-panel-category {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  gap: 10px;
+}
+/* poster */
+.poster-panel {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  justify-content: center;
+}
+/* end poster */
+
+/* comment */
+.comment-panel {
+  display: grid;
+  grid-template-rows: auto 1fr auto auto;
+  gap: 5px;
+}

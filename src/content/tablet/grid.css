@@ -1,0 +1,7 @@
+@media only screen and (max-width: 1000px) {
+  .main-app-wrapper main {
+    grid-area: main;
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+}

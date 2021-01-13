@@ -1,0 +1,58 @@
+export default class Stripe{
+    constructor(pos,velocity,size,length,speed,brush,color){
+        this.pos={
+            x:pos.x,
+            y:pos.y
+        };
+        this.velocity={
+            x:velocity.x,
+            y:velocity.y
+        }
+        this.length=length;
+        this.speed=speed;
+        this.brush=brush;
+        this.color=color;
+        this.size=size;
+        this.lengthVelocity=1
+    }
+
+    draw(){
+        try{
+            this.brush.fillStyle=this.color;
+            this.brush.beginPath();
+            this.brush.moveTo(this.bottomLeft.x,this.bottomLeft.y);
+            this.brush.lineTo(this.bottomRight.x,this.bottomRight.y);
+            this.brush.lineTo(this.topRight.x,this.topRight.y);
+            this.brush.lineTo(this.topLeft.x,this.topLeft.y);
+            this.brush.fill();
+        }catch(e){}
+    }
+
+    tick(){
+        try{
+            this.bottomLeft={
+                x:this.pos.x+((this.velocity.x*-1)*(+this.size)),
+                y:this.pos.y+((this.velocity.y*1)*(+this.size))
+            };
+            this.bottomRight={
+                x:this.pos.x+((this.velocity.x*-1)*(-this.size)),
+                y:this.pos.y+((this.velocity.y*1)*(-this.size))
+            };
+            this.topLeft={
+                x:this.pos.x+((this.velocity.x*-1)*(+this.size))+((this.velocity.x)*this.length),
+                y:this.pos.y+((this.velocity.y*1)*(+this.size))+((this.velocity.y)*this.length)
+            };
+            this.topRight={
+                x:this.pos.x+((this.velocity.x*-1)*(-this.size))+((this.velocity.x)*this.length),
+                y:this.pos.y+((this.velocity.y*1)*(-this.size))+((this.velocity.y)*this.length)
+            };
+    
+             this.pos.x+=this.velocity.x*this.speed;
+             this.pos.y+=this.velocity.y*this.speed;
+             if(this.length>20){
+                this.lengthVelocity=-1;
+             }
+             this.length+=this.lengthVelocity;
+        }catch(e){}
+    }
+}

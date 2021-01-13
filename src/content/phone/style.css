@@ -1,0 +1,53 @@
+@media only screen and (max-width: 600px) {
+  .poster-panel img {
+    width: 90vw;
+  }
+  .upload-poster-panel {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    transform: translate(50%, 50%);
+    background: var(--primary);
+    z-index: 21;
+    animation: fade-in-up-down 0.5s forwards;
+  }
+  .upload-poster-panel .close {
+    right: 10px;
+    top: 10px;
+  }
+  .login-page .decore-side {
+    display: none;
+  }
+  .register-page {
+    align-items: flex-end;
+  }
+  .register-page .form-wrapper {
+    width: 80vw;
+  }
+  .app-logo label {
+    display: inline-block;
+    font-size: 40px;
+  }
+  .phone-ui-menu {
+    position: absolute;
+    width: 100%;
+    transform: translateX(-100%);
+    height: 100%;
+    z-index: 100;
+    top: 92px;
+    animation: main-menu-up-down 0.5s linear forwards;
+  }
+  .main-menu .link {
+    padding: 20px 10px;
+    font-size: 20px;
+  }
+}
+
+@keyframes main-menu-up-down {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
