@@ -8,6 +8,7 @@ import LoadingScreen from '../util/loadingScreen'
 import HomeMain from './homeMain'
 import PosterMain from '../post/posterMain'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import posterMain from '../post/posterMain'
 class HomePage extends Component {
   static history
   componentDidMount() {
@@ -27,16 +28,16 @@ class HomePage extends Component {
     return (
       <div className="main-app-wrapper">
         <Head />
-        <Menu classes={` ${this.props.ui.phoneMenu && 'phone-ui-menu'}`} />
         <main>
           <BrowserRouter>
+            <Menu classes={` ${this.props.ui.phoneMenu && 'phone-ui-menu'}`} />
             <Switch>
-              <Route path="/poster/:id" component={PosterMain} />
-              <Route path="/:id" component={HomeMain} />
+              <Route path="/rey/:id" component={PosterMain} />
+              <Route path="/category/:id" component={HomeMain} />
               <Route path="/" component={HomeMain} />
+              <div className="hot-post-aside"></div>
             </Switch>
           </BrowserRouter>
-          <div className="hot-post-aside"></div>
         </main>
 
         <Foot />

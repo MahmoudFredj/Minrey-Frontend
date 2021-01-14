@@ -46,7 +46,7 @@ class HomeMain extends Component {
     }
   }
   handleRedirect = ({ _id }) => {
-    this.props.history.push(`/poster/${_id}`)
+    this.props.history.push(`/rey/${_id}`)
   }
   render() {
     return (

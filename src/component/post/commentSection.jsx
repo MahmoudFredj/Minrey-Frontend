@@ -13,7 +13,6 @@ class CommentSection extends Component {
     this.setState({ loaded: true })
   }
   componentWillUnmount() {
-    console.log('reset')
     this.props.resetCommentSection()
   }
   render() {

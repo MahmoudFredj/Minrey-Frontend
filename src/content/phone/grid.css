@@ -1,5 +1,5 @@
 @media only screen and (max-width: 600px) {
-  .main-app-wrapper {
+  .main-app-wrapper main {
     grid-template-columns: 0px 1fr;
   }
   .login-page {

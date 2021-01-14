@@ -1,12 +1,12 @@
 /* app grid */
 .main-app-wrapper {
   display: grid;
-  grid-template-columns: 150px 1fr;
+  grid-template-columns: 1fr;
   grid-template-rows: auto 1fr auto;
   grid-template-areas:
-    'header header'
-    'menu main'
-    'footer footer';
+    'header'
+    'main'
+    'footer';
   gap: 3px;
   height: 100vh;
 }
@@ -18,12 +18,11 @@
 .main-app-wrapper main {
   grid-area: main;
   display: grid;
-  grid-template-columns: 1fr 200px;
+  grid-template-columns: 150px 1fr 200px;
+  gap: 3px;
   overflow-y: hidden;
 }
-.main-app-wrapper menu {
-  grid-area: menu;
-}
+
 .main-app-wrapper footer {
   grid-area: footer;
 }

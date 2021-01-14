@@ -17,7 +17,7 @@ class PosterMain extends Component {
   render() {
     return (
       <div className="poster-main">
-        <Button onClick={() => this.props.history.goBack()}>⟵</Button>
+        <Button onClick={() => this.props.history.push('/')}>⟵</Button>
         <div className="poster-section">
           {!this.state.loading && (
             <PosterPanel value={this.props.post} onClick={() => {}} />

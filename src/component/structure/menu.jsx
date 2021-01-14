@@ -25,6 +25,7 @@ class Menu extends Component {
 
   componentDidMount() {
     this.props.loadCategory()
+    console.log('menu', this.props.history)
   }
 
   handleChange = (e) => {
@@ -97,7 +98,7 @@ class Menu extends Component {
         {this.props.categories.map((category) => (
           <div key={category._id} className="link" style={{ widht: '100%' }}>
             <Link
-              to={`/${category._id}`}
+              to={`/category/${category._id}`}
               onClick={() => this.handleLink(category._id)}
             >
               <span>{category.name}</span>

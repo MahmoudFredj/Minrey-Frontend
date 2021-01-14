@@ -35,8 +35,9 @@
     height: 100%;
     z-index: 100;
     top: 92px;
-    animation: main-menu-up-down 0.5s linear forwards;
+    animation: main-menu-up-down 0.25s linear forwards;
   }
+
   .main-menu .link {
     padding: 20px 10px;
     font-size: 20px;

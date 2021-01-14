@@ -5,7 +5,7 @@ import HomePage from './home/homePage'
 import Login from './auth/login'
 import Register from './auth/register'
 import Logout from './auth/logout'
-import { Switch, Route, BrowserRouter, useHistory } from 'react-router-dom'
+import { Switch, Route, BrowserRouter, Router } from 'react-router-dom'
 import { connect } from 'react-redux'
 
 class App extends Component {
@@ -33,10 +33,10 @@ class App extends Component {
         )}
         <BrowserRouter>
           <Switch>
+            <Route path="/" component={HomePage} />
             <Route path="/login" component={Login} />
             <Route path="/register" component={Register} />
             <Route path="/logout" component={Logout} />
-            <Route path="/" component={HomePage} />
           </Switch>
         </BrowserRouter>
       </React.Fragment>
