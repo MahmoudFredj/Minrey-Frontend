@@ -2,7 +2,7 @@ import http from '../../services/http'
 import * as actions from '../api'
 import { apiDev, apiProd } from '../../config.json'
 
-const apiUrl = apiDev
+const apiUrl = apiProd
 
 const api = ({ dispatch }) => (next) => async (action) => {
   if (action.type !== actions.apiCallBegan.type) return next(action)
