@@ -25,7 +25,6 @@ class Menu extends Component {
 
   componentDidMount() {
     this.props.loadCategory()
-    console.log('menu', this.props.history)
   }
 
   handleChange = (e) => {
@@ -40,7 +39,6 @@ class Menu extends Component {
       name: Joi.string().min(3).max(10).required(),
     })
 
-    console.log(category)
     const { error } = schema.validate(category)
     if (error) return this.setState({ warning: error.details[0].message })
 
@@ -52,10 +50,11 @@ class Menu extends Component {
     this.props.removeCategory(data)
   }
   handleLink = (id) => {
-    if (!id) {
+    if (typeof id === 'undefined') {
       this.props.clearList()
       this.props.loadPost(1, 10)
       this.props.switchPhoneMenu(false)
+      return
     }
     this.props.clearList()
     this.props.loadPostWithCategory(id, 1, 10)

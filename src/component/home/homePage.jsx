@@ -9,6 +9,7 @@ import HomeMain from './homeMain'
 import PosterMain from '../post/posterMain'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import posterMain from '../post/posterMain'
+import Aside from '../structure/aside'
 class HomePage extends Component {
   static history
   componentDidMount() {
@@ -34,9 +35,9 @@ class HomePage extends Component {
             <Switch>
               <Route path="/rey/:id" component={PosterMain} />
               <Route path="/category/:id" component={HomeMain} />
-              <Route path="/" component={HomeMain} />
-              <div className="hot-post-aside"></div>
+              <Route exact path="/" component={HomeMain} />
             </Switch>
+            <Aside />
           </BrowserRouter>
         </main>
 

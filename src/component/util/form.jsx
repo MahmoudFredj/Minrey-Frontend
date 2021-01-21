@@ -17,13 +17,21 @@ class Form extends Component {
           if (ops[1].args.limit > 400) area = true
         }
       }
-
-      inputs.push({
+      let value = ''
+      if (this.props.setters)
+        for (let i = 0; i < this.props.setters.length; i++) {
+          if (this.props.setters[i].name === key[0]) {
+            value = this.props.setters[i].value
+            break
+          }
+        }
+      const input = {
         name: key[0],
         type: area ? 'text-area' : 'text',
-        value: '',
+        value: value,
         warning: null,
-      })
+      }
+      inputs.push(input)
     }
 
     this.schema = schema
@@ -55,9 +63,10 @@ class Form extends Component {
     const { error } = this.schema.validate(jsonForm)
     if (!error) {
       //reseting inputs array
-      inputs.map((input) => {
-        input.value = ''
-      })
+      if (!this.props.noResetAtConfirm)
+        inputs.map((input) => {
+          input.value = ''
+        })
 
       this.setState({ inputs })
       return this.props.onConfirm(jsonForm)
@@ -89,7 +98,9 @@ class Form extends Component {
                       name: input.name,
                       placeholder: input.name,
                       type:
-                        input.name == 'password'
+                        input.name == 'password' ||
+                        input.name == 'currentPassword' ||
+                        input.name == 'newPassword'
                           ? 'password'
                           : input.name === 'birthDate'
                           ? 'date'

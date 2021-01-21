@@ -5,6 +5,7 @@ import Button from '../util/button'
 import { connect } from 'react-redux'
 import { register } from '../../store/entities/user'
 import LoadingScreen from '../util/loadingScreen'
+
 class Register extends Component {
   getSchema = () => {
     const schema = Joi.object({
@@ -16,7 +17,6 @@ class Register extends Component {
       lastName: Joi.string().min(3).max(50).required(),
       birthDate: Joi.date(),
     })
-
     return schema
   }
 

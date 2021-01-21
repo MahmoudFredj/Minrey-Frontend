@@ -9,6 +9,7 @@ import UploadPosterPanel from '../home/uploadPosterPanel'
 import { logout, loadUser } from '../../store/entities/user'
 import { switchPhoneMenu } from '../../store/entities/ui'
 import LoadingScreen from '../util/loadingScreen'
+import userIcon from '../../assets/userIcon.png'
 class Head extends Component {
   state = {
     logged: true,
@@ -40,6 +41,27 @@ class Head extends Component {
             </label>
           </div>
           <h1>minrey</h1>
+          <div className="head-user-menu">
+            {this.props.user && (
+              <React.Fragment>
+                <label>
+                  {!this.props.user.image ? (
+                    <img src={userIcon} alt="user" />
+                  ) : (
+                    <img alt="user" />
+                  )}
+                </label>
+                <div className="head-user-menu-body">
+                  <label
+                    onClick={() => this.props.history.push('/userManagement')}
+                  >
+                    User Management
+                  </label>
+                  <label onClick={() => this.props.logout()}>Logout</label>
+                </div>
+              </React.Fragment>
+            )}
+          </div>
           <aside>
             {this.props.user ? (
               <UploadButton

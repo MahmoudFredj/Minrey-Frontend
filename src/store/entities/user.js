@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 import { apiCallBegan } from '../api'
 import decode from 'jwt-decode'
 import { setJWT } from '../../services/http'
+import { useReducer } from 'react'
 const tokenKey = 'token'
 
 const slice = createSlice({
@@ -34,6 +35,14 @@ const slice = createSlice({
     userLoaded: (user, action) => {
       user.userInfo = getCurrentUser()
       setJWT(getJWT())
+    },
+    userLoadedById: (user, action) => {
+      user.userInfo = action.payload
+    },
+    userUpdated: (user, action) => {
+      user.userInfo = action.payload
+      user.loading = false
+      user.error = null
     },
   },
 })
@@ -78,3 +87,42 @@ const getCurrentUser = () => {
 const getJWT = () => {
   return localStorage.getItem(tokenKey)
 }
+
+// user management
+export const loadUserById = (id) =>
+  apiCallBegan({
+    url: `/user/${id}`,
+    onstart: actions.callBegan.type,
+    onSuccess: actions.userLoadedById.type,
+    onError: actions.callFailed.type,
+  })
+
+export const updateAccount = (data) =>
+  apiCallBegan({
+    url: '/user/account',
+    method: 'put',
+    data,
+    onStart: actions.callBegan.type,
+    onSuccess: actions.userUpdated.type,
+    onError: actions.callFailed.type,
+  })
+
+export const updatePassword = (data) =>
+  apiCallBegan({
+    url: '/user/password',
+    method: 'put',
+    data,
+    onStart: actions.callBegan.type,
+    onSuccess: actions.userUpdated.type,
+    onError: actions.callFailed.type,
+  })
+
+export const updateProfile = (data) =>
+  apiCallBegan({
+    url: '/user/profile',
+    method: 'put',
+    data,
+    onStart: actions.callBegan.type,
+    onSuccess: actions.userUpdated.type,
+    onError: actions.callFailed.type,
+  })

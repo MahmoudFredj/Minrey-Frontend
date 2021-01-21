@@ -31,7 +31,7 @@
 /* header grid */
 .app-header {
   display: grid;
-  grid-template-columns: auto 1fr auto;
+  grid-template-columns: auto 1fr auto auto;
 }
 /* end header grid */
 
@@ -80,3 +80,25 @@
   grid-template-rows: auto 1fr auto auto;
   gap: 5px;
 }
+
+/* end comment */
+
+/* ui color */
+
+.ui-color-picker {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  gap: 2px;
+  padding: 2px;
+}
+
+/* end ui color */
+
+/* user management */
+.user-management-wrapper {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 3px;
+}
+
+/* end userman */

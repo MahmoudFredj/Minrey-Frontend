@@ -5,7 +5,7 @@
   --suffix: #00ff99;
   --prefix: #ff0055;
   --exotic: #82589f;
-  --exoticlight: #fff200;
+  --rey: #fff200;
 }
 
 /* general */
@@ -282,10 +282,63 @@ textarea {
 .app-logo label {
   display: none;
   font-size: 40px;
+  cursor: pointer;
+}
+.app-header .head-user-menu {
+  height: 100%;
+  font-size: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  transition: 0.27s;
+}
+.head-user-menu .head-user-menu-body {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transition: 0.27s;
+  transform: translate(-50%, 100%) rotateY(90deg);
+  width: 180px;
+  height: auto;
+  padding: 20px 0px;
+  background: var(--secondary);
+  z-index: 11;
+}
+.head-user-menu:hover .head-user-menu-body {
+  transform: translate(-50%, 100%) rotateY(0deg);
+}
+
+.app-header .head-user-menu img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.app-header .head-user-menu:hover {
+  background: var(--secondary);
+}
+
+.app-header .head-user-menu label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  padding: 0 10px;
+  margin: 5px 0px;
+}
+
+.head-user-menu .head-user-menu-body label {
+  font-size: 18px;
+  justify-content: left;
+  align-items: left;
+}
+
+.app-header .head-user-menu label:hover {
+  color: var(--suffix);
 }
 .app-logo label:hover {
   color: var(--suffix);
-  cursor: pointer;
 }
 .app-logo:after {
   background: var(--primary);
@@ -346,7 +399,7 @@ textarea {
 .main-menu a {
   text-decoration: none;
   color: var(--text);
-  display: block;
+  display: inline-block;
 }
 /* end main menu */
 
@@ -401,13 +454,13 @@ textarea {
     fill: var(--suffix);
   }
   25% {
-    fill: #12cbc4;
+    fill: var(--prefix);
   }
   50% {
     fill: var(--exotic);
   }
   75% {
-    fill: #fff200;
+    fill: var(--rey);
   }
   100% {
     fill: var(--prefix);
@@ -447,7 +500,7 @@ textarea {
   left: 0;
   width: 0;
   height: 0;
-  border-top: 100px solid var(--exoticlight);
+  border-top: 100px solid var(--rey);
   border-right: 100px solid transparent;
   z-index: 4;
   transition: 0.27s;
@@ -492,6 +545,55 @@ textarea {
 }
 /* end register page */
 
+/* user ui management */
+.aside-user-ui-management h3 {
+  padding: 0px 10px;
+  color: var(--exotic);
+}
+/* end user ui management */
+
+/* color ui */
+
+.color-picker-menu {
+  background: var(--primary);
+  overflow-x: hidden;
+  transition: 0.27s;
+}
+
+.color-picker-menu:hover {
+  background: var(--secondary);
+  color: var(--text);
+}
+
+.color-picker-menu > label {
+  display: block;
+  margin: 5px 0px;
+  color: var(--secondary);
+  background: var(--primary);
+  border: solid 0.5px var(--primary);
+  width: 80px;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  padding: 3px 20px;
+  cursor: pointer;
+  transform: translateX(-11px);
+  transition: 0.27s;
+}
+
+.color-picker-menu > label:hover {
+  transform: translateX(0px);
+}
+.ui-color-picker > div {
+  height: 25px;
+  border: solid 0.5px var(--secondary);
+  cursor: pointer;
+  transition: 0.27s;
+}
+
+.ui-color-picker :hover {
+  transform: scale(0.9);
+}
+/* end color ui */
 /* upload  */
 .upload-button path {
   fill: var(--text);
@@ -688,7 +790,7 @@ img {
   float: right;
 }
 .comment-panel .update-comment:hover {
-  color: var(--exoticlight);
+  color: var(--rey);
 }
 
 .comment-panel .comments {
@@ -698,6 +800,74 @@ img {
 }
 
 /* end comment */
+
+/* user management */
+.user-management-wrapper {
+  min-height: 100vh;
+}
+.user-management-wrapper > div {
+  background: var(--primary);
+}
+.user-management-wrapper .aside {
+  padding: 10px;
+  color: var(--text);
+}
+
+.user-management-wrapper .aside .head label {
+  text-align: center;
+  display: block;
+}
+
+.user-management-wrapper .aside .body a {
+  color: var(--text);
+  display: block;
+  padding: 10px 0;
+  text-decoration: none;
+  transition: 0.27s;
+}
+
+.user-management-wrapper .aside .body a:hover {
+  color: var(--prefix);
+}
+
+.user-management-wrapper .aside .head img {
+  display: block;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+}
+
+.user-management-wrapper .main {
+  padding: 20px;
+  color: var(--text);
+}
+.user-management-wrapper .head {
+  text-align: center;
+}
+.user-management-wrapper .head .user-img-wrapper {
+  position: relative;
+  display: inline-block;
+}
+.user-management-wrapper .head .user-img-wrapper:hover span {
+  opacity: 1;
+}
+.user-management-wrapper .head .user-img-wrapper span {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  border-radius: 50%;
+  background-color: var(--secondary);
+  opacity: 0;
+  transition: 0.27s;
+  cursor: pointer;
+  color: var(--text);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* end user management */
 /* animations */
 
 .close-swipe {
@@ -743,7 +913,7 @@ img {
   background-color: var(--prefix);
 }
 .dot2 {
-  background-color: var(--exoticlight);
+  background-color: var(--rey);
 }
 .dot2 {
   top: auto;
@@ -786,7 +956,7 @@ img {
     -webkit-transform: scale(1);
   }
   0% {
-    background-color: var(--exoticlight);
+    background-color: var(--rey);
   }
   50% {
     background-color: var(--prefix);

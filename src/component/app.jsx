@@ -5,8 +5,10 @@ import HomePage from './home/homePage'
 import Login from './auth/login'
 import Register from './auth/register'
 import Logout from './auth/logout'
+import UserManagement from './user/userManagement'
 import { Switch, Route, BrowserRouter, Router } from 'react-router-dom'
 import { connect } from 'react-redux'
+import { load } from './util/library/colorManagement'
 
 class App extends Component {
   componentDidMount() {
@@ -23,6 +25,7 @@ class App extends Component {
       canvas.width = window.innerWidth
       canvas.height = window.innerHeight
     })
+    load()
   }
   render() {
     return (
@@ -33,10 +36,11 @@ class App extends Component {
         )}
         <BrowserRouter>
           <Switch>
-            <Route path="/" component={HomePage} />
+            <Route exact path="/" component={HomePage} />
             <Route path="/login" component={Login} />
             <Route path="/register" component={Register} />
             <Route path="/logout" component={Logout} />
+            <Route path="/userManagement" component={UserManagement} />
           </Switch>
         </BrowserRouter>
       </React.Fragment>

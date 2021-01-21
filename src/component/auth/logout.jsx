@@ -4,6 +4,7 @@ import { logout } from '../../store/entities/user'
 class Logout extends Component {
   state = {}
   componentDidMount() {
+    console.log('logging out')
     this.props.logout()
     this.props.history.goBack()
   }
