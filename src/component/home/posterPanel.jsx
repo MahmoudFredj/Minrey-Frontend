@@ -60,7 +60,9 @@ class PosterPanel extends Component {
           <span>{this.props.value.likes.length}</span>
           <Button>copy link</Button>
 
-          <Button>Delete</Button>
+          {this.props.user && this.props.user.isAdmin && (
+            <Button>Delete</Button>
+          )}
         </div>
       </div>
     )
