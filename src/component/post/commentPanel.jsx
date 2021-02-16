@@ -2,8 +2,13 @@ import React, { Component } from 'react'
 import Button from '../util/button'
 import { connect } from 'react-redux'
 import CommentInput from './commentInput'
-import { loadReplies, likeComment } from '../../store/entities/comment'
+import {
+  loadReplies,
+  likeComment,
+  deleteComment,
+} from '../../store/entities/comment'
 import ReplayPanel from './replyPanel'
+import { dialogStart } from '../util/dialog'
 class CommentPanel extends Component {
   state = {
     reply: false,
@@ -39,6 +44,16 @@ class CommentPanel extends Component {
     this.setState({ liked: !this.state.liked })
     this.props.likeComment({ _id: this.props.comment._id })
   }
+  handleDelete = () => {
+    const comment = this.props.comment
+    dialogStart({
+      head: 'confirmation dialg',
+      body: 'are you sure you want to delete this comment?',
+      confirm: () => {
+        this.props.deleteComment({ _id: comment._id })
+      },
+    })
+  }
   render() {
     const comment = this.props.comment
     return (
@@ -61,7 +76,12 @@ class CommentPanel extends Component {
             replay
           </span>
           {this.props.user && comment.user._id === this.props.user._id && (
-            <span className="update-comment sm-btn">update</span>
+            <span
+              className="update-comment  sm-btn"
+              onClick={this.handleDelete}
+            >
+              delete
+            </span>
           )}
         </div>
         <div className="comments">
@@ -96,5 +116,6 @@ const mapState = (state) => ({
 const mapDispatch = (dispatch) => ({
   loadReplies: (id) => dispatch(loadReplies(id)),
   likeComment: (id) => dispatch(likeComment(id)),
+  deleteComment: (id) => dispatch(deleteComment(id)),
 })
 export default connect(mapState, mapDispatch)(CommentPanel)

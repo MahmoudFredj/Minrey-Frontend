@@ -32,6 +32,15 @@ const slice = createSlice({
       }
       comment.loading = false
     },
+    commentDeleted: (comment, action) => {
+      for (let i = 0; i < comment.list.length; i++) {
+        if (comment.list[i]._id === action.payload._id) {
+          comment.list.splice(i, 1)
+          break
+        }
+      }
+      comment.loading = false
+    },
     commentLiked: (comment, action) => {
       comment.loading = false
       for (let i = 0; i < comment.list.length; i++) {
@@ -106,7 +115,15 @@ export const reply = (comment) =>
     onSuccess: actions.commentEdited.type,
     onError: actions.callFailed.type,
   })
-
+export const deleteComment = (comment) =>
+  apiCallBegan({
+    url,
+    method: 'delete',
+    data: comment,
+    onStart: actions.callBegan.type,
+    onSuccess: actions.commentDeleted.type,
+    onError: actions.callFailed.type,
+  })
 export const likeComment = (idComment) =>
   apiCallBegan({
     url: `${url}/like`,

@@ -102,3 +102,11 @@
 }
 
 /* end userman */
+
+/* cropping */
+
+.cropping-panel {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+}
+/* end cropping */

@@ -13,7 +13,6 @@ export const setColorSection = (section, color) => {
 
 export const load = () => {
   const unParsed = localStorage.getItem('colors')
-  console.log(unParsed)
   let colors = null
   try {
     colors = JSON.parse(unParsed)
@@ -34,7 +33,6 @@ export const load = () => {
   document.documentElement.style.setProperty(`--prefix`, colors.prefix)
   document.documentElement.style.setProperty(`--suffix`, colors.suffix)
   document.documentElement.style.setProperty(`--exotic`, colors.exotic)
-  console.log(colors)
   document.documentElement.style.setProperty(`--rey`, colors.rey)
   localStorage.setItem('colors', JSON.stringify(colors))
 }

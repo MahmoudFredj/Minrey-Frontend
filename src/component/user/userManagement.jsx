@@ -7,21 +7,39 @@ import Account from './account'
 import Password from './password'
 import Profile from './profile'
 import Button from '../util/button'
+import TestCropping from '../test/testCropping.jsx'
+
 class UserManagement extends Component {
-  state = {}
+  state = {
+    croppingMode: false,
+  }
   async componentDidMount() {
     await this.props.loadUser()
     await this.props.loadUserById(this.props.user._id)
     console.log(this.props.user)
   }
+  handlePictureChange = (img) => {
+    console.log(img)
+  }
   render() {
     return (
       <div className="user-management-wrapper">
+        {this.state.croppingMode && (
+          <TestCropping
+            onClose={() => {
+              this.setState({ croppingMode: false })
+            }}
+            onConfirm={this.handlePictureChange}
+          />
+        )}
         <BrowserRouter>
           <div className="aside">
             <Button onClick={() => this.props.history.push('/')}>⟵</Button>
             <div className="head">
-              <div className="user-img-wrapper">
+              <div
+                className="user-img-wrapper"
+                onClick={() => this.setState({ croppingMode: true })}
+              >
                 <img src={userIcon} alt="User Image" />
                 <span>change pic</span>
               </div>

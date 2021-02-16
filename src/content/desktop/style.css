@@ -25,7 +25,7 @@ article {
 img {
   pointer-events: none;
 }
-canvas {
+canvas:not(.crop) {
   position: fixed;
   top: 0;
   left: 0;
@@ -403,6 +403,37 @@ textarea {
 }
 /* end main menu */
 
+/* cropping */
+
+.cropping-panel {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 20;
+  padding: 10px;
+}
+
+.cropping-panel .head {
+  color: var(--suffix);
+}
+
+.cropping-panel .body {
+  color: var(--text);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.cropping-panel .body > * {
+  margin: 5px;
+}
+
+.cropping-panel button {
+  float: right;
+}
+/* end cropping */
+
 /* loading screen */
 .loading-screen path {
   fill: var(--secondary);
@@ -594,6 +625,45 @@ textarea {
   transform: scale(0.9);
 }
 /* end color ui */
+
+/* dialog */
+.dialog-background {
+  position: fixed;
+  left: 0;
+  top: 0;
+  background: var(--text);
+  width: 100vw;
+  height: 100vh;
+  z-index: 20;
+  opacity: 0.2;
+}
+.dialog {
+  position: absolute;
+  background: var(--primary);
+  color: var(--text);
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 21;
+
+  text-align: center;
+}
+.dialog > * {
+  padding: 10px;
+}
+.dialog .head {
+  position: relative;
+}
+.dialog .head .close {
+  float: right;
+  cursor: pointer;
+  transition: 0.27s;
+}
+.dialog .head .close:hover {
+  transform: rotate(360deg);
+}
+/* end dialg */
+
 /* upload  */
 .upload-button path {
   fill: var(--text);
@@ -630,17 +700,6 @@ textarea {
   100% {
     transform: translate(3%, -1%);
   }
-}
-
-.dialog-background {
-  position: fixed;
-  left: 0;
-  top: 0;
-  background: var(--text);
-  width: 100vw;
-  height: 100vh;
-  z-index: 20;
-  opacity: 0.2;
 }
 
 .upload-poster-panel {
