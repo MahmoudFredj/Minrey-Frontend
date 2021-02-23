@@ -87,8 +87,11 @@ class Crop {
     if (mouse.press && this.topRight.hover) {
       const widhtCost = dist.x - this.width - this.x
       const heightCost = dist.y - this.y
-      this.width += widhtCost
-      this.height -= heightCost
+
+      if (this.width + widhtCost > 50 && this.width + widhtCost < 150)
+        this.width += widhtCost
+      if (this.height - heightCost > 50 && this.height - heightCost < 150)
+        this.height -= heightCost
       if (Math.abs(widhtCost) > Math.abs(heightCost)) this.height = this.width
       else {
         this.x += heightCost
@@ -128,8 +131,18 @@ class Crop {
       mouse.y < cropCOS.y + this.height &&
       mouse.press
     ) {
-      this.x = mouse.x - canvasCoords.x - diffrenceCoordMouseAndCrop.x
-      this.y = mouse.y - canvasCoords.y - diffrenceCoordMouseAndCrop.y
+      if (
+        mouse.x - canvasCoords.x - diffrenceCoordMouseAndCrop.x + this.width <
+          canvas.width &&
+        mouse.x - canvasCoords.x - diffrenceCoordMouseAndCrop.x > 0
+      )
+        this.x = mouse.x - canvasCoords.x - diffrenceCoordMouseAndCrop.x
+      if (
+        mouse.y - canvasCoords.y - diffrenceCoordMouseAndCrop.y + this.height <
+          canvas.height &&
+        mouse.y - canvasCoords.y - diffrenceCoordMouseAndCrop.y > 0
+      )
+        this.y = mouse.y - canvasCoords.y - diffrenceCoordMouseAndCrop.y
     }
 
     this.setCornors()
