@@ -1,5 +1,11 @@
 import React, { Component } from 'react'
-import { setup, addImage, setMouse, setPress } from '../util/canvas/crop'
+import {
+  setup,
+  addImage,
+  setMouse,
+  setPress,
+  cropIt,
+} from '../util/canvas/crop'
 import Button from '../util/button'
 class TestCropping extends Component {
   canvasRef = React.createRef()
@@ -47,6 +53,10 @@ class TestCropping extends Component {
   }
 
   handleCrop = () => {
+    const img = cropIt()
+    this.props.onConfirm(img)
+
+    // reset image in crops
     this.props.onClose()
   }
 

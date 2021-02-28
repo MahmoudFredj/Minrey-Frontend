@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import userIcon from '../../assets/userIconLarge.png'
 import { connect } from 'react-redux'
-import { loadUser, loadUserById } from '../../store/entities/user'
+import { loadUser, loadUserById, updateImage } from '../../store/entities/user'
 import { Link, BrowserRouter, Route, Switch } from 'react-router-dom'
+import { arrayBufferToBase64 } from '../util/library/rayUtil'
 import Account from './account'
 import Password from './password'
 import Profile from './profile'
@@ -12,14 +13,23 @@ import TestCropping from '../test/testCropping.jsx'
 class UserManagement extends Component {
   state = {
     croppingMode: false,
+    userIcon,
   }
   async componentDidMount() {
     await this.props.loadUser()
     await this.props.loadUserById(this.props.user._id)
-    console.log(this.props.user)
   }
-  handlePictureChange = (img) => {
-    console.log(img)
+
+  handlePictureChange = async (img) => {
+    this.setState({ userIcon: img })
+
+    // convert to file
+    const ft = await fetch(img)
+    const buff = await ft.arrayBuffer()
+    const file = new File([buff], 'img', { type: 'image/png' })
+    const form = new FormData()
+    form.append('image', file, 'user.png')
+    this.props.updateImage(form)
   }
   render() {
     return (
@@ -40,7 +50,16 @@ class UserManagement extends Component {
                 className="user-img-wrapper"
                 onClick={() => this.setState({ croppingMode: true })}
               >
-                <img src={userIcon} alt="User Image" />
+                {this.props.user && this.props.user.image ? (
+                  <img
+                    src={`data:image/jpeg;base64,${arrayBufferToBase64(
+                      this.props.user.image.data.data,
+                    )}`}
+                    alt="User Image"
+                  />
+                ) : (
+                  <img src={this.state.userIcon} alt="User Image" />
+                )}
                 <span>change pic</span>
               </div>
               <label>{this.props.user && this.props.user.email}</label>
@@ -71,5 +90,6 @@ const mapState = (state) => ({
 const mapDispatch = (dispatch) => ({
   loadUser: () => dispatch(loadUser()),
   loadUserById: (id) => dispatch(loadUserById(id)),
+  updateImage: (data) => dispatch(updateImage(data)),
 })
 export default connect(mapState, mapDispatch)(UserManagement)

@@ -42,17 +42,14 @@ class Crop {
     brush.fillRect(0, 0, canvas.width, canvas.height)
     brush.putImageData(datai, this.x, this.y)
     if (this.displayCorno) {
-      //   this.drawCircle(brush, this.topLeft)
       this.drawCircle(brush, this.topRight)
-      //   this.drawCircle(brush, this.bottomLeft)
-      //   this.drawCircle(brush, this.bottomRight)
     }
   }
 
-  drawCircle(brush, cornor) {
-    brush.fillStyle = cornor.hover ? 'green' : 'white'
+  drawCircle(brush, pos) {
+    brush.fillStyle = pos.hover ? 'green' : 'white'
     brush.beginPath()
-    brush.arc(cornor.x, cornor.y, this.cornorRadius, 0, Math.PI * 2)
+    brush.arc(pos.x, pos.y, this.cornorRadius, 0, Math.PI * 2)
     brush.fill()
   }
   distance(a, b) {
@@ -75,23 +72,21 @@ class Crop {
       x: mouse.x - canvasCoords.x,
       y: mouse.y - canvasCoords.y,
     }
-    // if (mouse.press && this.topLeft.hover) {
-    //   this.width -= dist.x - this.x
-    //   this.height -= dist.y - this.y
-    //   this.x = mouse.x - canvasCoords.x
-    //   this.y = mouse.y - canvasCoords.y
-    //   this.setCornors()
-    //   return
-    // }
 
     if (mouse.press && this.topRight.hover) {
       const widhtCost = dist.x - this.width - this.x
       const heightCost = dist.y - this.y
 
-      if (this.width + widhtCost > 50 && this.width + widhtCost < 150)
-        this.width += widhtCost
-      if (this.height - heightCost > 50 && this.height - heightCost < 150)
-        this.height -= heightCost
+      this.width += widhtCost
+      this.height -= heightCost
+
+      // capsulating the min max width and height 50 and 150
+      if (this.width + widhtCost > 150) this.width = 150
+      if (this.height - heightCost > 150) this.height = 150
+
+      if (this.height - heightCost < 50) this.width = 50
+      if (this.width - widhtCost < 50) this.width = 50
+
       if (Math.abs(widhtCost) > Math.abs(heightCost)) this.height = this.width
       else {
         this.x += heightCost
@@ -101,22 +96,6 @@ class Crop {
       this.setCornors()
       return
     }
-
-    // if (mouse.press && this.bottomLeft.hover) {
-    //   this.width -= dist.x - this.x
-    //   this.height += dist.y - this.height - this.y
-    //   this.x = mouse.x - canvasCoords.x
-    //   this.setCornors()
-    //   return
-    // }
-
-    // if (mouse.press && this.bottomRight.hover) {
-    //   this.width += dist.x - this.width - this.x
-    //   this.height += dist.y - this.height - this.y
-    //   this.setCornors()
-    //   return
-    // }
-    // crop zone
 
     if (!mouse.press) {
       diffrenceCoordMouseAndCrop = {
@@ -131,22 +110,24 @@ class Crop {
       mouse.y < cropCOS.y + this.height &&
       mouse.press
     ) {
-      if (
-        mouse.x - canvasCoords.x - diffrenceCoordMouseAndCrop.x + this.width <
-          canvas.width &&
-        mouse.x - canvasCoords.x - diffrenceCoordMouseAndCrop.x > 0
-      )
-        this.x = mouse.x - canvasCoords.x - diffrenceCoordMouseAndCrop.x
-      if (
-        mouse.y - canvasCoords.y - diffrenceCoordMouseAndCrop.y + this.height <
-          canvas.height &&
-        mouse.y - canvasCoords.y - diffrenceCoordMouseAndCrop.y > 0
-      )
-        this.y = mouse.y - canvasCoords.y - diffrenceCoordMouseAndCrop.y
+      this.x = mouse.x - canvasCoords.x - diffrenceCoordMouseAndCrop.x
+
+      this.y = mouse.y - canvasCoords.y - diffrenceCoordMouseAndCrop.y
     }
 
+    if (this.distance(mouse, this.bottomRight) < this.cornorRadius)
+      this.bottomRight.hover = true
+    else this.bottomRight.hover = false
+
+    // encapsulate
+    if (this.x < 0) this.x = 0
+    if (this.y < 0) this.y = 0
+    if (this.x + this.width > canvas.width) this.x = canvas.width - this.width
+    if (this.y + this.height > canvas.height)
+      this.y = canvas.height - this.height
+
     this.setCornors()
-    // cornor hover
+    // checking if the mouse hovering on resize cornor
     if (this.distance(mouse, this.topLeft) < this.cornorRadius)
       this.topLeft.hover = true
     else this.topLeft.hover = false
@@ -158,10 +139,6 @@ class Crop {
     if (this.distance(mouse, this.bottomLeft) < this.cornorRadius)
       this.bottomLeft.hover = true
     else this.bottomLeft.hover = false
-
-    if (this.distance(mouse, this.bottomRight) < this.cornorRadius)
-      this.bottomRight.hover = true
-    else this.bottomRight.hover = false
   }
 
   setCornors() {
@@ -175,7 +152,7 @@ class Crop {
     this.bottomRight.x = this.x + this.width
     this.bottomRight.y = this.y + this.height
   }
-}
+} //end crop class
 
 let brush
 let mycrop
@@ -244,7 +221,21 @@ export const addImage = (files) => {
 }
 
 export const cropIt = () => {
-  // return mycrop.
+  let expCanvas = document.createElement('canvas')
+  expCanvas.width = mycrop.width
+  expCanvas.height = mycrop.height
+  let expBrush = expCanvas.getContext('2d')
+  const expdata = brush.getImageData(
+    mycrop.x,
+    mycrop.y,
+    mycrop.width,
+    mycrop.height,
+  )
+
+  expBrush.putImageData(expdata, 0, 0)
+
+  const exImage = expCanvas.toDataURL()
+  return exImage
 }
 
 const draw = () => {

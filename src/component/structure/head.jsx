@@ -6,7 +6,8 @@ import { withRouter } from 'react-router'
 import Button from '../util/button'
 import UploadButton from '../util/uploadButton'
 import UploadPosterPanel from '../home/uploadPosterPanel'
-import { logout, loadUser } from '../../store/entities/user'
+import { arrayBufferToBase64 } from '../util/library/rayUtil'
+import { logout, loadUser, loadUserById } from '../../store/entities/user'
 import { switchPhoneMenu } from '../../store/entities/ui'
 import LoadingScreen from '../util/loadingScreen'
 import userIcon from '../../assets/userIcon.png'
@@ -15,8 +16,9 @@ class Head extends Component {
     logged: true,
     displayFormPanel: false,
   }
-  componentDidMount() {
-    this.props.loadUser()
+  async componentDidMount() {
+    await this.props.loadUser()
+    await this.props.loadUserById(this.props.user._id)
   }
   handleRedirect = () => {
     this.props.history.push('/login')
@@ -48,7 +50,12 @@ class Head extends Component {
                   {!this.props.user.image ? (
                     <img src={userIcon} alt="user" />
                   ) : (
-                    <img alt="user" />
+                    <img
+                      src={`data:image/jpeg;base64,${arrayBufferToBase64(
+                        this.props.user.image.data.data,
+                      )}`}
+                      alt="user"
+                    />
                   )}
                 </label>
                 <div className="head-user-menu-body">
@@ -89,5 +96,6 @@ const mapDispatch = (dispatch) => ({
   logout: () => dispatch(logout()),
   loadUser: () => dispatch(loadUser()),
   switchPhoneMenu: (value) => dispatch(switchPhoneMenu(value)),
+  loadUserById: (id) => dispatch(loadUserById(id)),
 })
 export default connect(mapState, mapDispatch)(withRouter(Head))

@@ -126,3 +126,13 @@ export const updateProfile = (data) =>
     onSuccess: actions.userUpdated.type,
     onError: actions.callFailed.type,
   })
+
+export const updateImage = (data) =>
+  apiCallBegan({
+    url: '/user/img',
+    method: 'put',
+    data,
+    onStart: actions.callBegan.type,
+    onSuccess: actions.userUpdated.type,
+    onError: actions.callFailed.type,
+  })
